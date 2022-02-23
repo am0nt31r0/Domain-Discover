@@ -1,0 +1,18 @@
+#!/bin/bash
+
+TLDfile="https://data.iana.org/TLD/tlds-alpha-by-domain.txt"
+directory=`pwd`
+tld="$directory/.tdls.txt"
+tldtemp="$directory/.tdlstmp.txt"
+dFile="$directory/$1.domains.txt"
+dFiletemp="$directory/.$1.tld"
+
+echo "[+] Downloading all TLDs' file ..."
+wget $TLDdile -o $tldtemp ; grep -v "#" $TLDfile | tr '[:upper:]' '[:lower:]' > $tld
+
+echo "[+] Discovering domains ..." ; for t in `cat $tld`; do host $1.$t >> $dFiletemp ; done
+
+echo "[+] Saving results: $dFile" ; grep "has\|is" $dFiletemp | grep -v "not found" | cut -d' ' -f1 | sort -u > $dFile
+
+echo "[!] Cleaning ..."
+rm $TLDfile $tld $tldtemp $dFiletemp
