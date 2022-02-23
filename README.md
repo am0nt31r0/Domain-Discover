@@ -1,4 +1,4 @@
-# TLD-Finder
+# Domain Discover
 
 Discover all domains for a given company using a DNS brute-forcer for every Top-Level Domain (TLD) available.
 
